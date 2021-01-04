@@ -1,14 +1,14 @@
-class Guitar{
+class Guitar {
 
     serialNumber: string;
-    price: string
+    price: number
     builder:string;
     model:string;
     type:string;
     backWood:string;
     topWood:string;
 
-    public constructor(serialNumber:string, price:string,
+    public constructor(serialNumber: string, price: number,
         builder: string, model: string, type: string,
         backWood: string, topWood: string) {
         this.serialNumber = serialNumber;
@@ -22,6 +22,28 @@ class Guitar{
 
     public getSerialNumber():string{
         return this.serialNumber;
+    }
+
+    public getPrice():number {
+        return this.price;
+    }
+    public setPrice(newPrice: number): void {
+        this.price = newPrice;
+    }
+    public getBuilder():string {
+        return this.builder;
+    }
+    public getModel():string {
+        return this.model;
+    }
+    public getType():string {
+        return this.type;
+    }
+    public getBackWood():string {
+        return this.backWood;
+    }
+    public getTopWood():string {
+        return this.topWood;
     }
 
 }
