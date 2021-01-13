@@ -1,7 +1,7 @@
-class Guitar {
+export class Guitar {
 
     serialNumber: string;
-    price: number
+    price: number;
     builder:string;
     model:string;
     type:string;
