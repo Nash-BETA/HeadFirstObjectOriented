@@ -6,7 +6,7 @@ import { Guitar } from './Guitar';
 export class FindGuitarTester {
     public inventory = new Inventory();
 
-    public main(serialNumber: serialNumber, price: number, builder: string, model: string, type: string, backWood: string, topWood: string ):string {
+    public main(serialNumber: string, price: number, builder: string, model: string, type: string, backWood: string, topWood: string ):string {
 
         const whatErinLikes = new Guitar(serialNumber, price, builder, model, type, backWood, topWood);
         let guitar = this.inventory.search(whatErinLikes);
