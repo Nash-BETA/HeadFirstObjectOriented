@@ -1,15 +1,16 @@
 import {Guitar} from './Guitar';
-
+import { Type } from './type'
+import { Wood } from './wood'
+import { Builder } from './builder'
 export class Inventory {
-    public guitars: Guitar[];
+    public guitars:any[];
 
     public constructor() {
         this.guitars = [];
     }
 
-    public addGuitar(serialNumber: string,price: number,builder: string,model: string,type: string,backWood: string, topWood:string):void {
+    public addGuitar(serialNumber: string, price: number, builder: Builder, model: string, type: Type, backWood: Wood, topWood: Wood):void {
         const guitar = new Guitar(serialNumber, price, builder,model, type, backWood, topWood);
-
         this.guitars.push(guitar);
     }
 
@@ -24,33 +25,39 @@ export class Inventory {
         }
         return null;
     }
-    public search(searchGuitar: Guitar): Guitar|null {
+    public search(searchGuitar: Guitar): []|null {
         let i: number = 0;
+        let returnGuitar :any= [];
         let count: number = this.guitars.length;
 
-
         for (i = 0; i < count; i++) {
-            let guitar: Guitar = new Guitar(this.guitars[i]['serialNumber'], this.guitars[i]['price'], this.guitars[i]['builder'], this.guitars[i]['model'], this.guitars[i]['type'], this.guitars[i]['backWood'], this.guitars[i]['topWood']);
+            let guitar: Guitar = new Guitar(this.guitars[i]['serialNumber'], this.guitars[i]['price'], this.guitars[i]['spec']['builder'], this.guitars[i]['spec']['model'], this.guitars[i]['spec']['type'], this.guitars[i]['spec']['backWood'], this.guitars[i]['spec']['topWood']);
+            let spec = guitar.getSpec();
+            let serchSpec = searchGuitar.getSpec();
+            let builder: Builder = serchSpec.getBuilder();
 
-            let builder: string = searchGuitar.getBuilder();
+            if (builder != null && builder != spec.getBuilder()){
+                continue;
+            }
+            let model: string = serchSpec.getModel();
 
-            if (builder != null && builder != '' && builder != guitar.getBuilder())
+            if (model != null && model != '' && model != spec.getModel()){
                 continue;
-            let model: string = searchGuitar.getModel();
-
-            if (model != null && model != '' &&  model != guitar.getModel())
+            }
+            let type: Type = serchSpec.getType();
+            if (type != null && serchSpec != null && type != spec.getType()){
                 continue;
-            let type: string = searchGuitar.getType();
-            if (type != null && searchGuitar != null && type != guitar.getType())
+            }
+            let backWood: Wood = serchSpec.getBackWood();
+            if (backWood != null &&backWood != spec.getBackWood()){
                 continue;
-            let backWood: string = searchGuitar.getBackWood();
-            if (backWood != null && backWood != '' && backWood != guitar.getBackWood())
+            }
+            let topWood: Wood = serchSpec.getTopWood();
+            if (topWood != null && topWood != spec.getTopWood()){
                 continue;
-            let topWood: string= searchGuitar.getTopWood();
-            if (topWood != null && topWood != '' && topWood != guitar.getTopWood())
-                continue;
-            return guitar;
+            }
+            returnGuitar.push(guitar)
         }
-        return null;
+        return returnGuitar;
     }
 }

@@ -2,11 +2,11 @@ export class Guitar {
 
     serialNumber: string;
     price: number;
-    builder:string;
-    model:string;
-    type:string;
-    backWood:string;
-    topWood:string;
+    builder: string;
+    model: string;
+    type: string;
+    backWood: string;
+    topWood: string;
 
     public constructor(serialNumber: string, price: number,
         builder: string, model: string, type: string,
@@ -19,7 +19,6 @@ export class Guitar {
         this.backWood = backWood;
         this.topWood = topWood;
     }
-
     public getSerialNumber():string{
         return this.serialNumber;
     }
