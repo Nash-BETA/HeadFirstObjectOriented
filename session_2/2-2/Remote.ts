@@ -15,13 +15,10 @@ export class Remote{
         }else{
             this.openFlag.open();
             //自動でドアがします
-            new Promise((resolve) => {
-                setTimeout(() => {
-                    this.openFlag.close();
-                    //完了宣言 - resolve
-                    resolve('');
-                }, 5000)
-            })
+            setTimeout(() => {
+                this.openFlag.close();
+                //完了宣言 - resolve
+            }, 500)
         }
     }
 }

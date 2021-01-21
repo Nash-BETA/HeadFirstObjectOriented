@@ -9,22 +9,22 @@ class Main{
     public main() {
         //自動でドアがします
         this.start('Fidoが外に出たいと吠えた！').then(() =>{
-            this.start('Fidoが外に出たがってる！')
+            this.start('Fidoが外に出たがってる！').then(() => {
+                this.start('Fidoが外から戻ってきた！')
+            })
         })
     }
 
-
-    public async start(text:string){
+    //ボタンを押す実行を順番に
+    public start(text:string){
         return new Promise((resolve) => {
             console.log(text)
             this.remote.pressButton()
-
             setTimeout(() => {
                 resolve('');
-            }, 5001);
+            }, 501);
         })
     }
-
 }
 
 let m = new Main();
