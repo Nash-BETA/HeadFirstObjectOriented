@@ -9,6 +9,7 @@
 ### アロー関数
 
 ### Map
+#### session5で使用
 
 ### Promise
 
