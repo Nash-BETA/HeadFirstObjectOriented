@@ -8,6 +8,8 @@
 
 ### アロー関数
 
+### Map
+
 ### Promise
 
 ### async/await

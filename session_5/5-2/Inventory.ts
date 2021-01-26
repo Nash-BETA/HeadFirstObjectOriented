@@ -8,10 +8,10 @@ import { GuitarSpec } from './GuitarSpec';
 import { MandolinSpec } from './MandolinSpec';
 import { InstrumentSpec } from './InstrumentSpec';
 export class Inventory {
-    public guitars: any;
+    public instruments: any;
 
     public constructor() {
-        this.guitars = [];
+        this.instruments = [];
     }
 
     //楽器の追加
@@ -24,15 +24,15 @@ export class Inventory {
         } else if( spec instanceof MandolinSpec) {
             instrument = new Mandolin(serialNumber, price, spec);
         }
-        this.guitars.push(instrument);
+        this.instruments.push(instrument);
     }
 
     //楽器の取得
-    public getGuitar(serialNumber:string): Instrument|null {
+    public getInstrument(serialNumber:string): Instrument|null {
         let i :number = 0;
-        let count: number = this.guitars.length;
+        let count: number = this.instruments.length;
         for (i = count; i++; ) {
-            let guitar :any = this.guitars[i];
+            let guitar: any = this.instruments[i];
             if (guitar.getSerialNumber() == serialNumber) {
                 return guitar;
             }
@@ -40,38 +40,47 @@ export class Inventory {
         return null;
     }
 
-    public search(searchGuitarSpec: GuitarSpec): []|null {
-        const searchGuitar = new Guitar('', 0, searchGuitarSpec);
-        let i: number = 0;
-        let returnGuitar :any= [];
-        let count: number = this.guitars.length;
-
-        for (i = 0; i < count; i++) {
-            let guitar = this.guitars[i].getSpec();
-
-            let builder: Builder = searchGuitarSpec.getBuilder();
-            if (builder != null && builder != guitar.getBuilder()){
-                continue;
-            }
-            let model: string = searchGuitarSpec.getModel();
-
-            if (model != null && model != '' && model != guitar.getModel()){
-                continue;
-            }
-            let type: Type = searchGuitarSpec.getType();
-            if (type != null && searchGuitarSpec != null && type != guitar.getType()){
-                continue;
-            }
-            let backWood: Wood = searchGuitarSpec.getBackWood();
-            if (backWood != null && backWood != guitar.getBackWood()){
-                continue;
-            }
-            let topWood: Wood = searchGuitarSpec.getTopWood();
-            if (topWood != null && topWood != guitar.getTopWood()){
-                continue;
-            }
-            returnGuitar.push(this.guitars[i])
+    public search(searchInstrumentSpec: InstrumentSpec): [] {
+        let searchInstrument;
+        if (searchInstrumentSpec instanceof GuitarSpec){
+            searchInstrument = new Guitar('', 0, searchInstrumentSpec);
+        } else if (searchInstrumentSpec instanceof MandolinSpec) {
+            searchInstrument = new Mandolin('', 0, searchInstrumentSpec);
         }
+
+        let i: number = 0;
+        let returnGuitar :any = [];
+        let count: number = this.instruments.length;
+
+        if (searchInstrument != undefined){
+            for (i = 0; i < count; i++) {
+                let guitar = this.instruments[i].getSpec();
+
+                let builder: Builder = searchInstrumentSpec.getBuilder();
+                if (builder != null && builder != guitar.getBuilder()){
+                    continue;
+                }
+                let model: string = searchInstrumentSpec.getModel();
+
+                if (model != null && model != '' && model != guitar.getModel()){
+                    continue;
+                }
+                let type: Type = searchInstrumentSpec.getType();
+                if (type != null && searchInstrumentSpec != null && type != guitar.getType()){
+                    continue;
+                }
+                let backWood: Wood = searchInstrumentSpec.getBackWood();
+                if (backWood != null && backWood != guitar.getBackWood()){
+                    continue;
+                }
+                let topWood: Wood = searchInstrumentSpec.getTopWood();
+                if (topWood != null && topWood != guitar.getTopWood()){
+                    continue;
+                }
+                returnGuitar.push(this.instruments[i])
+            }
+        }
+
         return returnGuitar;
     }
 }
