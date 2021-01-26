@@ -1,6 +1,7 @@
-import { Inventory } from './Inventory';
-import { Guitar } from './Guitar';
+
+import { Instrument } from './Instrument';
 import { GuitarSpec } from './GuitarSpec';
+import { Inventory } from './Inventory';
 import { Type } from './type'
 import { Wood } from './wood'
 import { Builder } from './builder'
@@ -25,20 +26,23 @@ class Main {
 
     }
 
-    returnMessage(serialNumber: string, price: number, builder: Builder, model: string, type: Type, numStrings:number,backWood: Wood, topWood: Wood): string {
+    returnMessage(builder: Builder, model: string, type: Type, numStrings:number,backWood: Wood, topWood: Wood): string {
         const whatErinLikes = new GuitarSpec(builder, model, type, numStrings,backWood, topWood);
 
         let guitars = this.inventory.search(whatErinLikes);
         let result: any = [];
-        let guitar: Guitar;
+        let guitar: Instrument;
+
         if (Array.isArray(guitars) || guitars != null) {
             for (guitar of guitars) {
                 let spec = guitar.getSpec();
-                let resultText = ('Erin, you might like this ' +
-                    spec.getBuilder() + ' ' + spec.getModel() + ' ' +
-                    spec.getType() + ' guitar:\n   ' +
-                    spec.getBackWood() + ' back and sides,\n   ' +
-                    spec.getTopWood() + ' top.\nYou can have it for only $' +
+
+
+                let resultText = ('君！！！ たぶん ' +
+                    Builder.toBuilder(spec.getBuilder()) + ' の ' + spec.getModel() + ' ' +
+                    Type.toType(spec.getType()) + ' のギターが好きだと思うよ！！ \n' +
+                    Wood.toWood(spec.getBackWood()) + ' back and sides, \n   ' +
+                    Wood.toWood(spec.getTopWood())+ ' top.\n 今なら $' +
                     guitar.getPrice() + '!');
 
                 result.push(resultText);
@@ -52,14 +56,14 @@ class Main {
 
 
     main(): void {
-        const export_text = this.returnMessage("V95693", 1499.95, Builder.FENDER, "Stratocastor", Type.ELECTRIC, 6, Wood.ALDER, Wood.ALDER);
+        const export_text = this.returnMessage(Builder.FENDER, "Stratocastor", Type.ELECTRIC, 6, Wood.ALDER, Wood.ALDER);
         console.log(export_text);
 
-        const export_text2 = this.returnMessage("11277", 3999.95, Builder.COLLINGS, "CJ", Type.ACOUSTIC, 6, Wood.INDIAN_ROSEWOOD, Wood.SITKA);
+        const export_text2 = this.returnMessage( Builder.COLLINGS, "CJ", Type.ACOUSTIC, 6, Wood.INDIAN_ROSEWOOD, Wood.SITKA);
         console.log(export_text2);
 
         //みつからないやつ
-        const export_text3 = this.returnMessage("11277", 3999.95, Builder.COLLINGS, "CJ", Type.ELECTRIC, 6, Wood.INDIAN_ROSEWOOD, Wood.SITKA);
+        const export_text3 = this.returnMessage(Builder.COLLINGS, "CJ", Type.ELECTRIC, 6, Wood.INDIAN_ROSEWOOD, Wood.SITKA);
         console.log(export_text3);
     }
 }

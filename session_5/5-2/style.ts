@@ -18,5 +18,5 @@ namespace Style{
 
 //enumとnamespaceを1つのファイルで使う場合はexportは別で書く
 export {
-    Style
+    Style,
 }

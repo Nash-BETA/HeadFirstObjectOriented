@@ -16,5 +16,5 @@ namespace Type {
     }
 }
 export {
-    Type
+    Type,
 }
