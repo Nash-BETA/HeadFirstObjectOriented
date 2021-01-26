@@ -1,42 +1,18 @@
-
 import { Type } from './type'
 import { Wood } from './wood'
 import { Builder } from './builder'
+import { InstrumentSpec } from './InstrumentSpec'
 
-export class GuitarSpec {
-    private builder: Builder;
-    private model: string;
-    private type: Type;
-    private backWood: Wood;
-    private topWood: Wood;
+export class GuitarSpec extends InstrumentSpec {
+    private numStrings: number;
 
-    public constructor(builder: Builder, model: string, type: Type, backWood: Wood, topWood: Wood) {
-        this.builder = builder;
-        this.model = model;
-        this.type = type;
-        this.backWood = backWood;
-        this.topWood = topWood;
+    constructor(builder: Builder, model: string, type: Type, numStrings: number, backWood: Wood, topWood: Wood) {
+        //superで抽象化クラスのコンストラクタに値を渡す
+        super(builder, model, type, backWood, topWood);
+        this.numStrings = numStrings;
     }
 
-    public getBuilder(): Builder {
-        return this.builder;
+    public getNumString() {
+        return this.numStrings;
     }
-
-    public getModel(): string {
-        return this.model;
-    }
-
-    public getType(): Type {
-        return this.type;
-    }
-
-    public getBackWood():Wood {
-        return this.backWood;
-    }
-
-    public getTopWood():Wood {
-        return this.topWood;
-    }
-
-
 }
