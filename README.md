@@ -18,3 +18,4 @@ Async Function
 
 ### 参考サイト
 <a href="https://azu.github.io/promises-book/">JS Promiseの本</a>
+<a href="https://blog.mitsuruog.info/2018/01/typescript-emun-tips">Enum</a>
