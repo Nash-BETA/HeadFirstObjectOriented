@@ -1,11 +1,7 @@
 import { Type } from './type';
 import { Wood } from './wood';
 import { Builder } from './builder';
-import { Guitar } from './Guitar';
-import { Mandolin } from './Mandolin';
 import { Instrument } from './Instrument';
-import { GuitarSpec } from './GuitarSpec';
-import { MandolinSpec } from './MandolinSpec';
 import { InstrumentSpec } from './InstrumentSpec';
 export class Inventory {
     public instruments: any;
@@ -16,14 +12,7 @@ export class Inventory {
 
     //楽器の追加
     public addInstrument(serialNumber: string, price: number, spec: InstrumentSpec):void {
-        let instrument;
-        //specのインスタンスがGuitarSpecならば
-        if(spec instanceof GuitarSpec){
-            instrument = new Guitar(serialNumber, price, spec);
-        //specのインスタンスがMandolinSpecならば
-        } else if( spec instanceof MandolinSpec) {
-            instrument = new Mandolin(serialNumber, price, spec);
-        }
+        const instrument = new Instrument(serialNumber, price, spec);
         this.instruments.push(instrument);
     }
 
@@ -40,41 +29,35 @@ export class Inventory {
         return null;
     }
 
-    public search(searchInstrumentSpec: InstrumentSpec): [] {
-        let searchInstrument;
-        if (searchInstrumentSpec instanceof GuitarSpec){
-            searchInstrument = new Guitar('', 0, searchInstrumentSpec);
-        } else if (searchInstrumentSpec instanceof MandolinSpec) {
-            searchInstrument = new Mandolin('', 0, searchInstrumentSpec);
-        }
+    public search(searchInstrumentSpec: InstrumentSpec) {
+        const searchInstrument = new Instrument('', 0, searchInstrumentSpec);
 
         let i: number = 0;
-        let returnGuitar :any = [];
+        let returnGuitar = [];
         let count: number = this.instruments.length;
-
         if (searchInstrument != undefined){
             for (i = 0; i < count; i++) {
                 let guitar = this.instruments[i].getSpec();
 
-                let builder: Builder = searchInstrumentSpec.getBuilder();
-                if (builder != null && builder != guitar.getBuilder()){
+                let builder: Builder = searchInstrumentSpec.getproperty('builder');
+                if (builder != null && builder != guitar.getproperty('builder')){
                     continue;
                 }
-                let model: string = searchInstrumentSpec.getModel();
+                let model: string = searchInstrumentSpec.getproperty('model');
 
-                if (model != null && model != '' && model != guitar.getModel()){
+                if (model != null && model != '' && model != guitar.getproperty('model')){
                     continue;
                 }
-                let type: Type = searchInstrumentSpec.getType();
-                if (type != null && searchInstrumentSpec != null && type != guitar.getType()){
+                let type: Type = searchInstrumentSpec.getproperty('type');
+                if (type != null && searchInstrumentSpec != null && type != guitar.getproperty('type')){
                     continue;
                 }
-                let backWood: Wood = searchInstrumentSpec.getBackWood();
-                if (backWood != null && backWood != guitar.getBackWood()){
+                let backWood: Wood = searchInstrumentSpec.getproperty('backWood');
+                if (backWood != null && backWood != guitar.getproperty('backWood')){
                     continue;
                 }
-                let topWood: Wood = searchInstrumentSpec.getTopWood();
-                if (topWood != null && topWood != guitar.getTopWood()){
+                let topWood: Wood = searchInstrumentSpec.getproperty('topWood');
+                if (topWood != null && topWood != guitar.getproperty('topWood')){
                     continue;
                 }
                 returnGuitar.push(this.instruments[i])

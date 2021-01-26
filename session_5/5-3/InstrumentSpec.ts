@@ -1,40 +1,20 @@
-import { Type } from './type'
-import { Wood } from './wood'
-import { Builder } from './builder'
 
-export abstract class InstrumentSpec {
-    builder: Builder;
-    model: string;
-    type: Type;
-    backWood: Wood;
-    topWood: Wood;
+export class InstrumentSpec {
+    private properties:Map<any,any>;
 
-    public constructor(builder: Builder, model: string, type: Type, backWood: Wood, topWood: Wood) {
-        this.builder = builder;
-        this.model = model;
-        this.type = type;
-        this.backWood = backWood;
-        this.topWood = topWood;
+    public constructor(properties: Map<any, any>) {
+        if(properties == null ){
+            this.properties = new Map();
+        } else {
+            this.properties = new Map(properties);
+        }
     }
 
-    public getBuilder(): Builder {
-        return this.builder;
+    public getproperty(propertyName:string) {
+        return this.properties.get(propertyName);
     }
 
-    public getModel(): string {
-        return this.model;
+    public getproperties() {
+        return this.properties;
     }
-
-    public getType(): Type {
-        return this.type;
-    }
-
-    public getBackWood(): Wood {
-        return this.backWood;
-    }
-
-    public getTopWood(): Wood {
-        return this.topWood;
-    }
-
 }

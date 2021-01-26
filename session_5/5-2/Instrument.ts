@@ -1,5 +1,5 @@
 import { InstrumentSpec } from './InstrumentSpec'
-export class Instrument {
+export abstract class  Instrument {
 
     public serialNumber: string;
     public price: number;
