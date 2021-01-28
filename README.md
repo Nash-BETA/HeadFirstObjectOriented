@@ -9,7 +9,6 @@
  + TypeScriptの勉強
 
 ## 次の勉強レポジトリ
-
 <a href="https://github.com/Nash-BETA/HeadFirstDesignPatterns">TypeScriptで書くデザインパターン</a>
 
 ## メモ（JSの書き方）
